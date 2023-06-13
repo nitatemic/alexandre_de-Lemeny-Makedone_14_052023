@@ -7,15 +7,15 @@ import autoprefixer from 'autoprefixer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), mkcert()],
-    css: {
-        postcss: {
-            plugins: [autoprefixer],
-        },
+  plugins: [react(), mkcert()],
+  css: {
+    postcss: {
+      plugins: [autoprefixer],
     },
-    server: {
-        port: 8080,
-        hot: true,
-        https: true,
-    },
+  },
+  server: {
+    port: 8080,
+    hot: true,
+    https: true,
+  },
 });
