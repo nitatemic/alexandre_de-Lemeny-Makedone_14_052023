@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function EmployeesList() {
+  const itemsPerPage = 10;
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
@@ -9,10 +10,37 @@ export default function EmployeesList() {
     setEmployees(storedEmployees);
   }, []);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filtrer les données en fonction du terme de recherche
+  const filteredData = employees.filter((item) => item.firstName.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  // Obtenir les éléments à afficher sur la page actuelle
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  // Gérer le changement de page
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Gérer le changement de terme de recherche
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Réinitialiser la page lors de la recherche
+  };
+
   return (
-    <div id="employee-div" className="container">
-      <h1>Current Employees</h1>
-      <table id="employee-table">
+    <div>
+      <input
+        type="text"
+        placeholder="Rechercher..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      <table className="table">
         <thead>
           <tr>
             <th>First Name</th>
@@ -27,7 +55,7 @@ export default function EmployeesList() {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
+          {currentData.map((employee) => (
             <tr key={employee.id}>
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
@@ -42,6 +70,23 @@ export default function EmployeesList() {
           ))}
         </tbody>
       </table>
+      <ul className="pagination">
+        {Array(Math.ceil(filteredData.length / itemsPerPage))
+          .fill()
+          .map((_, index) => (
+            <li
+              key={index}
+              className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+      </ul>
       <Link to="/" className="error-link">Home</Link>
     </div>
   );
