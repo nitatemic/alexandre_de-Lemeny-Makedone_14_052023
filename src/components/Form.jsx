@@ -37,6 +37,22 @@ export default function Form() {
     };
   }, [modalOpen]);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (event.target.classList.contains('modal-overlay')) {
+        closeModal();
+      }
+    };
+
+    if (modalOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [modalOpen]);
+
   function saveEmployee() {
     const firstName = document.getElementById('first-name');
     const lastName = document.getElementById('last-name');
@@ -63,7 +79,7 @@ export default function Form() {
     employees.push(employee);
     localStorage.setItem('employees', JSON.stringify(employees));
     openModal();
-  };
+  }
 
   const states = [
     {
@@ -367,8 +383,8 @@ export default function Form() {
       <button type="submit" onClick={saveEmployee}>Save</button>
       {modalOpen && (
       <Modal isOpen={modalOpen} onClose={closeModal}>
-        <p className="content-modal">Employee Created!</p>
-        <button type="button" onClick={closeModal}>Close</button>
+        <h2 className="content-modal">Employee Created!</h2>
+        <button type="button" className="content-modal-close" onClick={closeModal}>Close</button>
       </Modal>
       )}
     </>
