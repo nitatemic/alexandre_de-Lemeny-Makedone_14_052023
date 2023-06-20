@@ -34,6 +34,7 @@ export default function EmployeesList() {
 
   return (
     <div>
+      <h1>Current Employees</h1>
       <input
         type="text"
         placeholder="Rechercher..."
