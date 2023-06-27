@@ -322,69 +322,65 @@ export default function Form() {
 
   return (
     <>
-      <form action="#" id="create-employee">
-        <label htmlFor="first-name">
-          First Name
-          <input type="text" id="first-name" />
-        </label>
+      <form action="#" className="" id="create-employee">
+        <div className="mb-3">
+          <label htmlFor="first-name" className="form-label">First Name</label>
+          <input type="text" id="first-name" className="form-control" />
+        </div>
 
-        <label htmlFor="last-name">
-          Last Name
-          <input type="text" id="last-name" />
-        </label>
+        <div className="mb-3">
+          <label htmlFor="last-name" className="form-label">Last Name</label>
+          <input type="text" id="last-name" className="form-control" />
+        </div>
 
-        <label htmlFor="date-of-birth">
-          Date of Birth
-          <input id="date-of-birth" type="date" />
-        </label>
+        <div className="mb-3">
+          <label htmlFor="date-of-birth">Date of Birth</label>
+          <input id="date-of-birth" className="form-control" type="date" />
+        </div>
 
-        <label htmlFor="start-date">
-          Start Date
-          <input id="start-date" type="date" />
-        </label>
+        <div className="mb-3">
+          <label htmlFor="start-date">Start Date</label>
+          <input id="start-date" className="form-control" type="date" />
+        </div>
 
-        <fieldset className="address">
+        <fieldset className="address form-group">
           <legend>Address</legend>
+          <div className="mb-3">
+            <label htmlFor="street">Street</label>
+            <input id="street" className="form-control" type="text" />
+          </div>
 
-          <label htmlFor="street">
-            Street
-            <input id="street" type="text" />
-          </label>
+          <div className="mb-3">
+            <label htmlFor="city">City</label>
+            <input id="city" className="form-control" type="text" />
+          </div>
 
-          <label htmlFor="city">
-            City
-            <input id="city" type="text" />
-          </label>
+          <div className="mb-3">
+            <label htmlFor="state">State</label>
+            <select name="state" className="form-select" id="state" />
+          </div>
 
-          <label htmlFor="state">
-            State
-            <select name="state" id="state" />
-          </label>
-
-          <label htmlFor="zip-code">
-            Zip Code
-            <input id="zip-code" type="number" />
-          </label>
-
+          <div className="mb-3">
+            <label htmlFor="zip-code">Zip Code</label>
+            <input id="zip-code" className="form-control" pattern="[0-9]{5}" type="text" />
+          </div>
         </fieldset>
 
-        <label htmlFor="department">
-          Department
-          <select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
-        </label>
+        <label htmlFor="department">Department</label>
+        <select name="department" className="form-select" id="department">
+          <option>Sales</option>
+          <option>Marketing</option>
+          <option>Engineering</option>
+          <option>Human Resources</option>
+          <option>Legal</option>
+        </select>
 
       </form>
-      <button type="submit" onClick={saveEmployee}>Save</button>
+      <button type="submit" className="mt-4 btn btn-primary" onClick={saveEmployee}>Save</button>
       {modalOpen && (
       <Modal isOpen={modalOpen} onClose={closeModal}>
         <h2 className="content-modal">Employee Created!</h2>
-        <button type="button" className="content-modal-close" onClick={closeModal}>Close</button>
+        <button type="button" className="mt-4 btn btn-primary" onClick={closeModal}>Close</button>
       </Modal>
       )}
     </>
