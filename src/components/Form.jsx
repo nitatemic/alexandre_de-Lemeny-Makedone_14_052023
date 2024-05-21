@@ -18,7 +18,7 @@ export default function Form() {
   useEffect(() => {
     const stateSelect = document.getElementById('state');
 
-    states.forEach(function (state) {
+    states.forEach((state) => {
       const option = document.createElement('option');
       option.value = state.abbreviation;
       option.text = state.name;
@@ -50,6 +50,25 @@ export default function Form() {
     const city = document.getElementById('city');
     const state = document.getElementById('state');
     const zipCode = document.getElementById('zip-code');
+
+    /* Check every field is filled */
+    if (!firstName.value || !lastName.value || !dateOfBirth.value || !startDate.value || !department.value || !street.value || !city.value || !state.value || !zipCode.value) {
+      firstName.classList[firstName.value ? 'remove' : 'add']('is-invalid');
+
+      lastName.classList[lastName.value ? 'remove' : 'add']('is-invalid');
+
+      dateOfBirth.classList[dateOfBirth.value ? 'remove' : 'add']('is-invalid');
+
+      startDate.classList[startDate.value ? 'remove' : 'add']('is-invalid');
+
+      street.classList[street.value ? 'remove' : 'add']('is-invalid');
+
+      city.classList[city.value ? 'remove' : 'add']('is-invalid');
+
+      zipCode.classList[zipCode.value ? 'remove' : 'add']('is-invalid');
+
+      return;
+    }
 
     const employee = {
       firstName: firstName.value,
@@ -311,44 +330,51 @@ export default function Form() {
       <form action="#" className="" id="create-employee">
         <div className="mb-3">
           <label htmlFor="first-name" className="form-label">First Name</label>
-          <input type="text" id="first-name" className="form-control"/>
+          <input type="text" id="first-name" className="form-control" />
+          <div className="invalid-feedback">This field cannot be empty</div>
         </div>
 
         <div className="mb-3">
           <label htmlFor="last-name" className="form-label">Last Name</label>
-          <input type="text" id="last-name" className="form-control"/>
+          <input type="text" id="last-name" className="form-control" />
+          <div className="invalid-feedback">This field cannot be empty</div>
         </div>
 
         <div className="mb-3">
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" className="form-control" type="date"/>
+          <input id="date-of-birth" className="form-control" type="date" />
+          <div className="invalid-feedback">This field cannot be empty</div>
         </div>
 
         <div className="mb-3">
           <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" className="form-control" type="date"/>
+          <input id="start-date" className="form-control" type="date" />
+          <div className="invalid-feedback">This field cannot be empty</div>
         </div>
 
         <fieldset className="address form-group">
           <legend>Address</legend>
           <div className="mb-3">
             <label htmlFor="street">Street</label>
-            <input id="street" className="form-control" type="text"/>
+            <input id="street" className="form-control" type="text" />
+            <div className="invalid-feedback">This field cannot be empty</div>
           </div>
 
           <div className="mb-3">
             <label htmlFor="city">City</label>
-            <input id="city" className="form-control" type="text"/>
+            <input id="city" className="form-control" type="text" />
+            <div className="invalid-feedback">This field cannot be empty</div>
           </div>
 
           <div className="mb-3">
             <label htmlFor="state">State</label>
-            <select name="state" className="form-select" id="state"/>
+            <select name="state" className="form-select" id="state" />
           </div>
 
           <div className="mb-3">
             <label htmlFor="zip-code">Zip Code</label>
-            <input id="zip-code" className="form-control" pattern="[0-9]{5}" type="text"/>
+            <input id="zip-code" className="form-control" pattern="[0-9]{5}" type="text" />
+            <div className="invalid-feedback">This field cannot be empty</div>
           </div>
         </fieldset>
 
