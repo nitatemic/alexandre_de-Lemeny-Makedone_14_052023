@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Modal from '@nitatemic/reactmodal';
+import { useDispatch } from 'react-redux';
+import { addEmployee } from '../redux/actions';
 
 export default function Form() {
   const [modalOpen, setModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setModalOpen(true);
@@ -37,22 +40,6 @@ export default function Form() {
     };
   }, [modalOpen]);
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (event.target.classList.contains('modal-overlay')) {
-        closeModal();
-      }
-    };
-
-    if (modalOpen) {
-      document.addEventListener('click', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [modalOpen]);
-
   function saveEmployee() {
     const firstName = document.getElementById('first-name');
     const lastName = document.getElementById('last-name');
@@ -64,7 +51,6 @@ export default function Form() {
     const state = document.getElementById('state');
     const zipCode = document.getElementById('zip-code');
 
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
     const employee = {
       firstName: firstName.value,
       lastName: lastName.value,
@@ -76,8 +62,8 @@ export default function Form() {
       state: state.value,
       zipCode: zipCode.value,
     };
-    employees.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+
+    dispatch(addEmployee(employee));
     openModal();
   }
 
@@ -325,44 +311,44 @@ export default function Form() {
       <form action="#" className="" id="create-employee">
         <div className="mb-3">
           <label htmlFor="first-name" className="form-label">First Name</label>
-          <input type="text" id="first-name" className="form-control" />
+          <input type="text" id="first-name" className="form-control"/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="last-name" className="form-label">Last Name</label>
-          <input type="text" id="last-name" className="form-control" />
+          <input type="text" id="last-name" className="form-control"/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" className="form-control" type="date" />
+          <input id="date-of-birth" className="form-control" type="date"/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" className="form-control" type="date" />
+          <input id="start-date" className="form-control" type="date"/>
         </div>
 
         <fieldset className="address form-group">
           <legend>Address</legend>
           <div className="mb-3">
             <label htmlFor="street">Street</label>
-            <input id="street" className="form-control" type="text" />
+            <input id="street" className="form-control" type="text"/>
           </div>
 
           <div className="mb-3">
             <label htmlFor="city">City</label>
-            <input id="city" className="form-control" type="text" />
+            <input id="city" className="form-control" type="text"/>
           </div>
 
           <div className="mb-3">
             <label htmlFor="state">State</label>
-            <select name="state" className="form-select" id="state" />
+            <select name="state" className="form-select" id="state"/>
           </div>
 
           <div className="mb-3">
             <label htmlFor="zip-code">Zip Code</label>
-            <input id="zip-code" className="form-control" pattern="[0-9]{5}" type="text" />
+            <input id="zip-code" className="form-control" pattern="[0-9]{5}" type="text"/>
           </div>
         </fieldset>
 
@@ -378,12 +364,11 @@ export default function Form() {
       </form>
       <button type="submit" className="mt-4 btn btn-primary" onClick={saveEmployee}>Save</button>
       {modalOpen && (
-      <Modal isOpen={modalOpen} onClose={closeModal}>
-        <h2 className="content-modal">Employee Created!</h2>
-        <button type="button" className="mt-4 btn btn-primary" onClick={closeModal}>Close</button>
-      </Modal>
+        <Modal isOpen={modalOpen} onClose={closeModal}>
+          <h2 className="content-modal">Employee Created!</h2>
+          <button type="button" className="mt-4 btn btn-primary" onClick={closeModal}>Close</button>
+        </Modal>
       )}
     </>
-
   );
 }
