@@ -9,7 +9,7 @@ function employees(state = initialState, action) {
     case ADD_EMPLOYEE:
       return {
         ...state,
-        employees: [...state.employees, action.employee],
+        employees: [...state.employees, { id: state.employees.length + 1, ...action.employee }],
       };
     default:
       return state;
