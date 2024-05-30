@@ -7,9 +7,19 @@ import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 export default function EmployeesList() {
   const employees = useSelector((state) => state.employees);
   const [searchTerm, setSearchTerm] = useState('');
+  const [pageSize, setPageSize] = useState(10); // Nombre d'éléments par page
+  const [currentPage, setCurrentPage] = useState(0); // Page actuelle
 
-  /* Filtrer les données en fonction du terme de recherche */
-  const filteredData = employees.filter((item) => item.firstName.toLowerCase().includes(searchTerm.toLowerCase()));
+
+
+  /* Filtrer les données en fonction du terme de recherche et de la pagination */
+  let filteredData = employees
+    .filter((item) => item.firstName.toLowerCase().includes(searchTerm.toLowerCase()))
+
+  const totalItems = filteredData.length;
+
+/* Pagination */
+  filteredData = filteredData.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
 
   /* Gérer le changement de terme de recherche */
   const handleSearchChange = (e) => {
@@ -106,6 +116,9 @@ export default function EmployeesList() {
     );
   }
 
+
+  const totalPages = Math.ceil(totalItems / pageSize);
+
   return (
     <div>
       <h1>Current Employees</h1>
@@ -117,6 +130,17 @@ export default function EmployeesList() {
       />
 
       <Table columns={columns} data={filteredData} />
+
+      {/* Pagination */}
+      <div>
+        <button onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 0}>Previous
+        </button>
+        <span>Showing elements {currentPage * pageSize + 1} - {Math.min((currentPage + 1) * pageSize, totalItems)} of {totalItems}</span>
+        <button onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages - 1}>Next
+        </button>
+      </div>
 
       <Link to="/" className="error-link">Home</Link>
     </div>
