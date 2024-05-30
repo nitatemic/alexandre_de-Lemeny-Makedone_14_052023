@@ -5,24 +5,15 @@ import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 
 export default function EmployeesList() {
-  /* Nombre d'éléments à afficher par page */
-  const itemsPerPage = 10;
   const employees = useSelector((state) => state.employees);
-
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
 
   /* Filtrer les données en fonction du terme de recherche */
   const filteredData = employees.filter((item) => item.firstName.toLowerCase().includes(searchTerm.toLowerCase()));
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentData = filteredData.slice(startIndex, endIndex);
 
   /* Gérer le changement de terme de recherche */
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    /* Réinitialiser la page lors de la recherche */
-    setCurrentPage(1);
   };
 
   const columns = React.useMemo(
@@ -85,31 +76,31 @@ export default function EmployeesList() {
     return (
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  <span>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <span>
                     {column.isSorted ? (column.isSortedDesc
-                      ? <FaSortDown />
-                      : <FaSortUp />)
+                        ? <FaSortDown />
+                        : <FaSortUp />)
                       : <FaSort />}
                   </span>
-                </th>
-              ))}
-            </tr>
-          ))}
+              </th>
+            ))}
+          </tr>
+        ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => <td {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
-              </tr>
-            );
-          })}
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => <td {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+            </tr>
+          );
+        })}
         </tbody>
       </table>
     );
@@ -125,7 +116,7 @@ export default function EmployeesList() {
         onChange={handleSearchChange}
       />
 
-      <Table columns={columns} data={currentData} />
+      <Table columns={columns} data={filteredData} />
 
       <Link to="/" className="error-link">Home</Link>
     </div>
