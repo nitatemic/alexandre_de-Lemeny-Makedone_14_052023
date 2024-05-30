@@ -409,10 +409,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@nitatemic/reactmodal@^1.0.5":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@nitatemic/reactmodal/-/reactmodal-1.0.9.tgz#bb74aefdea317167809ba00cdea5ff7d4454e1c4"
-  integrity sha512-EswZUr7wTDBl5HxJV4Xt3fLfN7UpBWCYNb7sGKig684V6R3G5qh1XefdSCcaMXhZDxavo4fg73kemRLBZxLY3g==
+"@nitatemic/reactmodal@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@nitatemic/reactmodal/-/reactmodal-1.0.12.tgz#49e775fa8d30c87320a49f7596ed7aefa210c58b"
+  integrity sha512-/W5m2+DM20mGrnGXDsfwVordxSXI6cdaPoSGKXGDIHZKWqQUdcJW22fU37DK1sZnyDGjBUps9tXBK4KLA2FIqg==
   dependencies:
     react "^18.2.0"
     react-dom "^18.2.0"
@@ -2318,6 +2318,11 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
+react-icons@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.2.1.tgz#28c2040917b2a2eda639b0f797bff1888e018e4a"
+  integrity sha512-zdbW5GstTzXaVKvGSyTaBalt7HSfuK5ovrzlpyiWHAFXndXTdd/1hdDHI4xBM1Mn7YriT6aqESucFl9kEXzrdw==
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -2350,6 +2355,11 @@ react-router@6.23.0:
   integrity sha512-wPMZ8S2TuPadH0sF5irFGjkNLIcRvOSaEe7v+JER8508dyJumm6XZB1u5kztlX0RVq6AzRVndzqcUh6sFIauzA==
   dependencies:
     "@remix-run/router" "1.16.0"
+
+react-table@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.8.0.tgz#07858c01c1718c09f7f1aed7034fcfd7bda907d2"
+  integrity sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==
 
 react@^18.2.0:
   version "18.3.1"
