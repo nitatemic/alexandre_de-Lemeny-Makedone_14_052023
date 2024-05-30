@@ -132,6 +132,9 @@ export default function EmployeesList() {
       </table>
       {/* Pagination */}
       <div>
+        <span>
+          Showing elements {pageIndex * pageSize + 1} - {Math.min((pageIndex + 1) * pageSize, data.length)} of {data.length}
+        </span>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           Previous
         </button>
