@@ -65,16 +65,18 @@ export default function EmployeesList() {
     pageOptions,
     nextPage,
     previousPage,
-    state: { pageIndex, pageSize, sortBy },
+    setPageSize,
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 }, // Définissez votre état initial ici
+      initialState: { pageIndex: 0, pageSize: 10},
     },
     useSortBy,
-    usePagination
+    usePagination,
   );
+
 
   return (
     <div>
@@ -85,6 +87,20 @@ export default function EmployeesList() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      {/* Select pour choisir le nombre d'éléments par page */}
+      <select
+        value={pageSize}
+        onChange={(e) => {
+          const newSize = Number(e.target.value);
+          setPageSize(newSize);
+        }}
+      >
+        {[10, 20, 50, 100].map((size) => (
+          <option key={size} value={size}>
+            {size}
+          </option>
+        ))}
+      </select>
       <table {...getTableProps()}>
         <thead>
         {headerGroups.map((headerGroup) => (
@@ -93,7 +109,8 @@ export default function EmployeesList() {
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
                 <span>
-                    {column.isSorted ? (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />) : <FaSort />}
+                    {column.isSorted ? (column.isSortedDesc ? <FaSortDown/> : <FaSortUp/>) :
+                      <FaSort/>}
                   </span>
               </th>
             ))}
